@@ -1,0 +1,6 @@
+c:\users\ola\documents\visual studio 2015\Projects\NetworkProgramming2\Client\bin\Debug\Client.exe.config
+c:\users\ola\documents\visual studio 2015\Projects\NetworkProgramming2\Client\bin\Debug\Client.exe
+c:\users\ola\documents\visual studio 2015\Projects\NetworkProgramming2\Client\bin\Debug\Client.pdb
+c:\users\ola\documents\visual studio 2015\Projects\NetworkProgramming2\Client\obj\Debug\Client.exe
+c:\users\ola\documents\visual studio 2015\Projects\NetworkProgramming2\Client\obj\Debug\Client.pdb
+C:\Users\Ola\Documents\Visual Studio 2015\Projects\NetworkProgramming2\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
