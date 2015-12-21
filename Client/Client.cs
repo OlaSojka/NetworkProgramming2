@@ -12,9 +12,11 @@ namespace Client
 {
     class Client
     {
+        private static Socket udpSocket;
+
         static void Main(string[] args)
         {
-            Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             udpSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             udpSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
             udpSocket.ReceiveTimeout = 1000;
@@ -39,10 +41,9 @@ namespace Client
                 }
                 catch (SocketException e)
                 {
-                    if (e.SocketErrorCode == SocketError.TimedOut)
-                    {
-                       //break;
-                    }
+                    if (e.SocketErrorCode == SocketError.TimedOut) { }
+                    else
+                        Console.WriteLine(e.StackTrace);
                 }
             }
             Console.WriteLine("Olka chuj");
@@ -50,12 +51,23 @@ namespace Client
             IPAddress tcpip = IPAddress.Parse(recv.ToString().Split(':')[0].TrimEnd(' '));
             IPEndPoint tcEndPoint = new IPEndPoint(tcpip, tcpport);
             Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            sender.Connect(tcEndPoint);
-            sender.Send(Encoding.ASCII.GetBytes("dupa"));
-            Console.WriteLine("Wyslalem dupe");
-
-
-
+            try
+            {
+                sender.Connect(tcEndPoint);
+                while (true)
+                {
+                    sender.Send(Encoding.ASCII.GetBytes("dupa"));
+                    Console.WriteLine("Wyslalem dupe");
+                }
+            }
+            catch (SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.ConnectionRefused ||
+                    e.SocketErrorCode == SocketError.ConnectionReset)
+                {
+                    Console.WriteLine("no nie pyklo");
+                }
+            }
             Console.ReadKey();
         }
     }

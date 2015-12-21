@@ -59,9 +59,13 @@ namespace NetworkProgramming2
             tcpsocket.Listen(1);
             Socket handler = tcpsocket.Accept();
             byte[] bytes = new byte[1024];
-            int bytesRec = handler.Receive(bytes);
-            data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-            Console.WriteLine("Text received : {0}", data);
+            while (true)
+            {
+                int bytesRec = handler.Receive(bytes);
+                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                Console.WriteLine("Text received : {0}", data);
+            }
+            
 
         }
 
